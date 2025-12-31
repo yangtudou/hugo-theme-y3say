@@ -1,0 +1,15 @@
+{{ define "main" }}
+  
+  <h1>{{ .Site.Title }}</h1>
+  
+  {{ .Content }} <!-- 显示 content/_index.md 的内容 -->
+  
+  {{ range .Site.RegularPages }} <!-- 遍历所有常规页面 -->
+  <article>
+    <h2><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
+    <time>{{ .Date.Format "2006-01-02" }}</time>
+    <p>{{ .Summary }}</p>
+  </article>
+  {{ end }}
+  
+{{ end }}

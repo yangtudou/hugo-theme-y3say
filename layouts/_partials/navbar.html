@@ -1,0 +1,28 @@
+<nav class="navbar" role="navigation" aria-label="主导航">
+  <div class="navbar-container">
+    <!-- 网站品牌标识 -->
+    <a href="{{ .Site.BaseURL }}" class="navbar-brand">{{ .Site.Title }}</a>
+
+    <!-- 汉堡菜单开关 -->
+    <div class="hamburger-menu">
+      <input class="menu__toggle" id="menu__toggle" type="checkbox" />
+      <label class="menu__btn" for="menu__toggle" aria-label="打开菜单">
+        <span></span> <!-- 这个span用于绘制汉堡图标的三条线 -->
+      </label>
+
+      <!-- 导航链接列表 -->
+      <ul class="navbar-nav menu__box">
+        {{- $currentPage := . -}}
+        {{- range site.Menus.main -}}
+          {{- $isCurrent := false -}}
+          {{- if eq .PageRef $currentPage.RelPermalink -}}
+            {{- $isCurrent = true -}}
+          {{- end -}}
+          <li class="nav-item{{ if $isCurrent }} active{{ end }}">
+            <a class="nav-link menu__item" href="{{ .URL | relLangURL }}">{{ .Name }}</a>
+          </li>
+        {{- end -}}
+      </ul>
+    </div>
+  </div>
+</nav>

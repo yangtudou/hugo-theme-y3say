@@ -1,0 +1,13 @@
+<!-- layouts/_default/card.html -->
+<article class="card">
+  <h2><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
+  {{ with .Params.cover.image }}
+    <img src="{{ . | absURL }}" alt="{{ $.Params.cover.alt }}" class="card-cover">
+  {{ end }}
+  <p class="card-summary">{{ .Summary }}</p>
+  <div class="card-meta">
+    <time>{{ .Date.Format "2006-01-02" }}</time>
+    <span>·</span>
+    <span>{{ .ReadingTime }} min read</span>
+  </div>
+</article>

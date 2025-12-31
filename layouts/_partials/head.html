@@ -1,0 +1,21 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+
+<title>
+{{ if .IsHome }}
+  {{ site.Title }}
+{{ else }}
+  {{ printf "%s | %s" .Title site.Title }}
+{{ end }}
+</title>
+
+{{ $cssResource := resources.Get "scss/main.scss" }}
+{{ if $cssResource }}
+    {{ $styles := $cssResource | toCSS | minify | fingerprint }}
+    <link rel="stylesheet" href="{{ $styles.RelPermalink }}" integrity="{{ $styles.Data.Integrity }}">
+{{ else }}
+    {{ errorf "CSS资源未找到: assets/css/main.scss" }}
+{{ end }}
+
+{{ partialCached "head/css.html" . }}
+{{ partialCached "head/js.html" . }}
