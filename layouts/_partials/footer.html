@@ -1,1 +1,8 @@
-<p>Copyright {{ now.Year }}. All rights reserved.</p>
+{{/*  从配置文件中获取建站年份  */}}
+{{ $startYear := .Site.Params.since_year }}
+{{/*  获取当前年份  */}}
+{{ $currentYear := now.Year }}
+
+<footer>
+  <p>&copy; {{ $startYear }} - {{ $currentYear }}</p>
+</footer>

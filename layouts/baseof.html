@@ -1,23 +1,23 @@
 <!DOCTYPE html>
-<html lang="{{ site.Language.LanguageCode }}" dir="{{ or site.Language.LanguageDirection `ltr` }}">
+<html lang="{{ site.Language.LanguageCode }}">
+
+{{/*  head  */}}
 <head>
   {{ partial "head.html" . }}
 </head>
+
 <body>
-  {{ if not .IsHome }}
-  <header>
-    {{ partial "header.html" . }}
-  </header>
-  {{ end }}
+
+{{/*  header  */}}
+{{ partial "header.html" . }}
   
+  {{/*  main  */}}
   <main>
     {{ block "main" . }}{{ end }}
   </main>
-  
-  {{ if not .IsHome }}
-  <footer>
-    {{ partial "footer.html" . }}
-  </footer>
-  {{ end }}
+
+  {{/*  footer  */}}
+  {{ partial "footer.html" . }}
+
 </body>
 </html>

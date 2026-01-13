@@ -9,6 +9,12 @@
 {{ end }}
 </title>
 
+{{/*  Google font  */}}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,100..900;1,100..900&family=Shrikhand&display=swap" rel="stylesheet">
+
+
 {{ $cssResource := resources.Get "scss/main.scss" }}
 {{ if $cssResource }}
     {{ $styles := $cssResource | toCSS | minify | fingerprint }}
