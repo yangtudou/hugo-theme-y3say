@@ -1,52 +1,164 @@
-// main {
-//   // width: 100vw;
-//   display: grid;
-//   grid-template-rows: 1fr 1fr 1fr;
-//   justify-items: center;
-//   justify-content: center;
-//   align-items: center;
+$header-height: 8vh;
+$footer-height: 8vh;
 
-//   .homepage-title {
-//     height: 10vh;
-//     font-family: "Shrikhand", serif;
-//     font-weight: 400;
-//     font-style: normal;
-//     font-size: 2.5rem; 
-//   }
-// }
 
-body {
+html {
+  font-size: 62.5%; /* 1rem = 10px */
+}
+
+
+* {
   margin: 0;
   padding: 0;
 }
 
 body {
-  height: 100vh;
-  display: grid;
-  header {
-    height: 10vh;
-    display: grid;
-    align-items: center;
-    grid-template-columns: 1fr auto;
-    padding: 0 2rem;
-    .title {
-      font-family: "Shrikhand", serif;
-      font-weight: 400;
-      font-size: 1.75rem; 
-    }
-
-    .nav-menu{
-      background-color: antiquewhite;
-    }
-  }
   main {
-    height: 80vh;
+    height: 100vh;
     display: grid;
-    place-items: center;
+    font-size: 3rem;
   }
   footer {
-    height: 10vh;
+    height: $footer-height;
     display: grid;
     place-items: center;
+    
+  
+    .footer-info {
+      height: $footer-height;
+      position: fixed;
+      bottom: 0;
+      font-size: 1.5rem;
+      display: flex;
+      align-items: center;
+    }
+  }
+}
+
+/* header 部分 */
+
+header {
+  position: sticky;
+  top: 0;
+  width: 100vw;
+  height: $header-height;
+  background: rgba(245, 245, 245, 0.08);
+  backdrop-filter: blur(20px) saturate(1.2);
+  -webkit-backdrop-filter: blur(20px) saturate(1.2);
+  transition: all 0.4s ease-in-out;
+  z-index: 1000;
+  overflow: hidden; // 关键：防止内容溢出
+
+  // 展开状态：header整体变化，菜单项延迟出现
+  &.open {
+    height: 100vh;
+    background: rgb(0, 0, 0);
+    
+    // 菜单项在header展开后依次出现
+    .nav-menu ul li {
+      opacity: 1;
+      transform: translateY(0);
+      
+      // 为每个菜单项设置递增的延迟
+      @for $i from 1 through 10 {
+        &:nth-child(#{$i}) {
+          transition-delay: #{$i * 0.08s + 0.2s}; // 基础延迟+递增延迟
+        }
+      }
+    }
+    
+    .nav-title.open {
+      color: rgb(26, 106, 70);;
+    }
+  }
+
+  nav {
+    display: grid;
+    height: $header-height;
+    padding: 0 4rem;
+    align-items: center;
+    align-content: center;
+    grid-template-columns: 1fr auto;
+    gap: 2rem;
+    position: relative;
+
+    .nav-title {
+      font-family: "Shrikhand", serif;
+      font-weight: 400;
+      font-size: 3rem;
+      transition: all 0.4s ease-in-out;
+    }
+
+    // 导航菜单 - 关键改进：菜单容器不参与布局动画
+    .nav-menu {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      // 移除max-height限制，让header控制整体高度
+      opacity: 1;
+      visibility: visible;
+      
+      ul {
+        list-style: none;
+        padding: 2rem 4rem;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        
+        li {
+          margin: 0;
+          opacity: 0; // 菜单项初始隐藏
+          transform: translateY(-0.15rem); // 轻微上移
+          transition: all 0.3s ease-out;
+          
+          .nav-link {
+            color: white;
+            text-decoration: none;
+            font-size: 1.5rem;
+            padding: 0.5rem 0;
+            display: block;
+            position: relative;    
+          }
+        }
+      }
+    }
+
+    // 导航切换按钮
+    .nav-toggle {
+      background-color: inherit;
+      width: 4rem;
+      height: 4rem;
+      border: none;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-end;
+      gap: 1rem;
+      cursor: pointer;
+      position: relative;
+      z-index: 1001;
+
+      span {
+        width: 3rem;
+        height: 0.2rem;
+        background-color: black;
+        transition: all 0.4s ease-in-out;
+        transform-origin: center;
+      }
+
+      &.active {
+        span {
+          background-color: rgb(255, 56, 56);
+        }
+        span:nth-child(1) {
+          transform: translateY(0.6rem) rotate(45deg);
+        }
+        span:nth-child(2) {
+          transform: translateY(-0.6rem) rotate(-45deg);
+        }
+      }
+    }
   }
 }

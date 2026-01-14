@@ -1,5 +1,9 @@
 {{ define "main" }}
-<div>
-  <p>主页的一句话</p>
-</div>
+  {{ range .Site.RegularPages }}
+  <article>
+    <h2><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
+    <time>{{ .Date.Format "2006-01-02" }}</time>
+    <p>{{ .Summary }}</p>
+  </article>
+  {{ end }}
 {{ end }}

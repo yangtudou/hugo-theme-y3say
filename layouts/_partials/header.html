@@ -1,6 +1,21 @@
 <header>
-    <p class="title">{{ site.Title }}</p>
-    <div class="nav-menu">
-        Menu
-    </div>
+    <nav>
+        {{/*  主标题  */}}
+        <p class="nav-title">{{ site.Title }}</p>
+        {{/*  菜单部分  */}}
+        <div class="nav-menu">
+            <ul>
+                {{ range .Site.Menus.main }}
+                <li>
+                    <a class="nav-link{{ if $.IsMenuCurrent "main" . }} active{{ end }}" href="{{ .URL }}">{{ .Name }}</a>
+                </li>
+                {{ end }}
+            </ul>
+        </div>
+        {{/*  菜单按钮  */}}
+        <button class="nav-toggle">
+            <span></span>
+            <span></span>
+        </button>
+    </nav>
 </header>

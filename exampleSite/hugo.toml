@@ -1,0 +1,28 @@
+baseURL = 'https://example.org/'
+languageCode = "zh-cn"
+title = "y3say Dev"
+
+theme = "y3say"
+
+[params]
+  # 设置网站的起始年份
+  since_year = 2020
+  
+[menus]
+  [[menus.main]]
+    id = "home"
+    name = "主页"
+    pageRef = '/'
+    weight = 1
+
+
+[module]
+  [module.hugoVersion]
+    extended = true
+    min = '0.146.0'
+  [[module.mounts]]
+    source = "y3say/content"
+    target = "content"
+  [[module.mounts]]
+    source = "y3/static"
+    target = "static"
